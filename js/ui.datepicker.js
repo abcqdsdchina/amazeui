@@ -83,6 +83,11 @@ var Datepicker = function(element, options) {
   this.fillMonths();
   this.update();
   this.showMode();
+
+  var self = this;
+  this.options.referenceElement && $(this.options.referenceElement).scroll(function() {
+    self.place();
+  });
 };
 
 Datepicker.DEFAULTS = {
@@ -94,6 +99,7 @@ Datepicker.DEFAULTS = {
   date: '',
   theme: '',
   autoClose: 1,
+  referenceElement: null,
   onRender: function(date) {
     return '';
   }
