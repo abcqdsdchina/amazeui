@@ -1,4 +1,4 @@
-/*! Amaze UI v2.7.2 | by Amaze UI Team | (c) 2019 AllMobilize, Inc. | Licensed under MIT | 2019-03-21T23:36:26+0800 */ 
+/*! Amaze UI v2.7.2 | by Amaze UI Team | (c) 2019 AllMobilize, Inc. | Licensed under MIT | 2019-03-22T19:52:50+0800 */ 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("jquery"));
@@ -4526,11 +4526,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.fillMonths();
 	  this.update();
 	  this.showMode();
-
-	  var self = this;
-	  $('#doc-modal-1').scroll(function() {
-	    self.place();
-	  });
 	};
 
 	Datepicker.DEFAULTS = {
@@ -4549,12 +4544,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	Datepicker.prototype.open = function(e) {
+	  var self = this;
+
 	  this.$picker.show();
 	  this.height = this.component ?
 	    this.component.outerHeight() : this.$element.outerHeight();
 
 	  this.place();
 	  $(window).on('resize.datepicker.amui', $.proxy(this.place, this));
+	  $(this.options.referenceElement).scroll($.proxy(this.place, this));
 	  if (e) {
 	    e.stopPropagation();
 	    e.preventDefault();

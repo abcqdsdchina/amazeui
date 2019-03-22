@@ -83,11 +83,6 @@ var Datepicker = function(element, options) {
   this.fillMonths();
   this.update();
   this.showMode();
-
-  var self = this;
-  this.options.referenceElement && $(this.options.referenceElement).scroll(function() {
-    self.place();
-  });
 };
 
 Datepicker.DEFAULTS = {
@@ -106,12 +101,15 @@ Datepicker.DEFAULTS = {
 };
 
 Datepicker.prototype.open = function(e) {
+  var self = this;
+
   this.$picker.show();
   this.height = this.component ?
     this.component.outerHeight() : this.$element.outerHeight();
 
   this.place();
   $(window).on('resize.datepicker.amui', $.proxy(this.place, this));
+  $(this.options.referenceElement).scroll($.proxy(this.place, this));
   if (e) {
     e.stopPropagation();
     e.preventDefault();
